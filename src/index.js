@@ -3,6 +3,7 @@ const ServerError = require('./server/utils/server.error');
 const winston = require('./server/winston.js');
 const Server = require('./server/server');
 const constants = require('./constants');
+const bodyParser = require('body-parser');
 
 /**
  * @name exports

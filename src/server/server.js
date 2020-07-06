@@ -235,6 +235,8 @@ class Server {
 
 	// Setup error routes
 	setErrorRoutes() {
+		this.app.use(bodyParser.json({limit: '50mb'}));
+		this.app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 		let logger = loggers.get('default');
 		//Enable error tracking error handler if supplied in config
 		if (this.config.errorTracking && this.config.errorTracking.errorHandler) {
