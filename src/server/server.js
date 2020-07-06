@@ -149,6 +149,8 @@ class Server {
 		this.app.use(prototypeInjectionHandler);
 		// Set favicon
 		this.app.use(favicon(this.config.server.favicon || path.join(__dirname, '../assets/phoenix.ico')));
+		this.app.use(bodyParser.json({limit: '50mb'}));
+		this.app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 		// return self for chaining
 		return this;
 	}
