@@ -143,14 +143,12 @@ class Server {
 		// Add compression
 		this.app.use(compression({ level: 9 }));
 		// Enable the body parser
-		this.app.use(bodyParser.urlencoded({ extended: true }));
-		this.app.use(bodyParser.json({ type: ['application/fhir+json', 'application/json+fhir'] }));
+		this.app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+		this.app.use(bodyParser.json({ limit: '50mb', type: ['application/fhir+json', 'application/json+fhir'] }));
 		// Enable @hapi/bourne to protect against prototype injection
 		this.app.use(prototypeInjectionHandler);
 		// Set favicon
 		this.app.use(favicon(this.config.server.favicon || path.join(__dirname, '../assets/phoenix.ico')));
-		this.app.use(bodyParser.json({limit: '50mb'}));
-		this.app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 		// return self for chaining
 		return this;
 	}
@@ -258,6 +256,7 @@ class Server {
 				let status = err.statusCode || 500;
 				res.status(status).json(new OperationOutcome(err));
 			} else if (err) {
+				console.log(bodyParser.json())
 				let error = new OperationOutcome({
 					statusCode: 500,
 					issue: [
